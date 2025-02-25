@@ -90,3 +90,11 @@ rule lockerDoesntChange(method f, env e, calldataarg args) {
 
     assert newLocker == locker;
 }
+
+// The destination address can always receive the token during a transfer
+rule destinationCanReceiveToken(env e, address from, address to, uint256 id) {
+      
+    transferFrom(e, from, to, id);
+   
+    assert(ownerOf(e, id) == to);
+}
